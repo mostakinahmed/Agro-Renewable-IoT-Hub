@@ -175,7 +175,7 @@ const AgriDashboard = () => {
           </h3>
           <div className="space-y-3 font-mono text-[11px] text-slate-400">
             <div className="p-3 bg-slate-900/50 rounded-lg border border-slate-700/50">
-              <p className="text-green-400 mb-1 font-bold uppercase tracking-tighter">
+              <p className="text-green-400 mb-1 font-bold uppercase">
                 Automatic Event
               </p>
               <p>
@@ -183,7 +183,7 @@ const AgriDashboard = () => {
               </p>
             </div>
             <div className="p-3 bg-slate-900/50 rounded-lg border border-slate-700/50">
-              <p className="text-yellow-400 mb-1 font-bold uppercase tracking-tighter">
+              <p className="text-yellow-400 mb-1 font-bold uppercase">
                 Energy Report
               </p>
               <p>Solar Input: {data.solarVolt}V. Storage efficiency: 94%.</p>
