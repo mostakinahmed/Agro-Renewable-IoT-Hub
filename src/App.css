@@ -1,0 +1,49 @@
+/* Infinite scrolling animation */
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+/* Your existing code */
+.animate-scroll {
+  animation: scroll 220s linear infinite;
+  width: max-content;
+}
+
+/* Add this to stop it on hover */
+.animate-scroll:hover {
+  animation-play-state: paused;
+}
+
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    /* Moves half the width of the doubled array */
+    transform: translateX(-50%);
+  }
+}
+
+.loader {
+  border: 6px solid #eee;
+  border-top: 6px solid #2b8cff;
+  border-radius: 50%;
+  width: 56px;
+  height: 56px;
+  animation: spin 1s linear infinite;
+}
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+
