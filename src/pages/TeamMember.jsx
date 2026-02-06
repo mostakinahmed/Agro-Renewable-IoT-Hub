@@ -16,7 +16,7 @@ const TeamMember = () => {
   ];
 
   return (
-    <div className="mt-10 bg-slate-900/40 p-4 rounded-2xl border border-slate-800/60">
+    <div className="mt-10 bg-slate-900/40 md:p-4 p-2 rounded-2xl border border-slate-800/60">
       <div className="flex items-center justify-between mb-5">
         <h3 className="text-lg font-bold text-slate-200 flex items-center gap-2 uppercase tracking-tight">
           <span className="w-1.5 h-4 bg-green-500 rounded-full"></span>
@@ -28,11 +28,11 @@ const TeamMember = () => {
       </div>
 
       {/* X-Axis Scroll Container */}
-      <div className="flex overflow-x-auto pb-4 justify-between gap-4 scrollbar-hide snap-x cursor-grab active:cursor-grabbing">
+      <div className="flex overflow-x-auto md:pb-4 justify-between md:gap-4 gap-2 scrollbar-hide snap-x cursor-grab active:cursor-grabbing">
         {team.map((member) => (
           <div
             key={member.id}
-            className="min-w-[160px] max-w-[200px] bg-slate-800/60 border border-slate-700/40 rounded-xl py-3 snap-start hover:border-green-500/40 transition-all group relative overflow-hidden shadow-lg"
+            className="md:min-w-[160px] min-w-[150px] md:max-w-[200px] max-w-[200px] bg-slate-800/60 border border-slate-700/40 rounded-xl py-3 snap-start hover:border-green-500/40 transition-all group relative overflow-hidden shadow-lg"
           >
             {/* Lead Tag */}
             {member.isAdmin && (

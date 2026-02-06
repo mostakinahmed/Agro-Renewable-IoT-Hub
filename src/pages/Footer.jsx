@@ -13,11 +13,11 @@ const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="mt-16 border-t border-slate-800 bg-slate-900/50 pt-6 px-6">
-      <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
+    <footer className="md:mt-16 border-t border-slate-800 bg-slate-900/50 pt-6 px-6">
+      <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center md:gap-6 gap-2">
         {/* Left Side: Branding */}
         <div className="text-center md:text-left">
-          <h2 className="text-xl font-bold text-white tracking-tight">
+          <h2 className="md:text-xl text-lg font-bold text-white tracking-tight">
             Mostakin <span className="text-green-500">Ahmed</span>
           </h2>
           {/* <p className="text-slate-500 text-xs mt-1 font-medium uppercase tracking-widest">
@@ -42,7 +42,7 @@ const Footer = () => {
         </div>
 
         {/* Right Side: Social Links */}
-        <div className="flex items-center gap-4">
+        <div className="flex items-center md:gap-4 gap-1">
           <SocialLink
             href="https://github.com/mostakinahmed"
             icon={<Github size={18} />}
@@ -64,9 +64,9 @@ const Footer = () => {
 
       {/* Bottom Copyright */}
       <div className="mt-6 pt-6 border-t border-slate-800/50 text-center">
-        <p className="text-slate-600 text-[10px] uppercase font-bold tracking-[0.2em] flex items-center justify-center gap-1">
+        <p className="text-slate-600 text-[10px] uppercase font-bold tracking-[0.2em] flex flex-col md:flex-row items-center justify-center gap-1">
           © {currentYear} All Rights Reserved • Made with{" "}
-          <Heart size={10} className="text-red-500 animate-pulse" /> at Daffodil
+          <Heart size={24} className="text-red-500 animate-pulse" /> at Daffodil
           International University
         </p>
       </div>

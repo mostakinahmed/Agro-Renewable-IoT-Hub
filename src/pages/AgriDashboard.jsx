@@ -54,7 +54,7 @@ const AgriDashboard = () => {
       {/* Header */}
       <header className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 border-b border-slate-700 pb-6 gap-4">
         <div>
-          <h1 className="text-3xl font-bold text-green-400 tracking-tight">
+          <h1 className="md:text-3xl text-2xl font-bold text-green-400 tracking-tight">
             Agro-Renewable IoT Hub
           </h1>
           <p className="text-slate-400 text-sm flex items-center gap-2">
@@ -72,7 +72,7 @@ const AgriDashboard = () => {
             </p>
           </div>
           <div className="flex items-center gap-4 bg-slate-800 px-4 py-2 rounded-xl border border-green-500/30">
-            <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
+            <div className="md:w-3 md:h-3 w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
             <span className="text-xs font-medium uppercase tracking-widest">
               Live
             </span>
@@ -222,7 +222,7 @@ const MetricCard = ({ icon, label, value, color }) => (
 
 const NPKBar = ({ label, value, color }) => (
   <div>
-    <div className="flex justify-between text-xs mb-1.5 font-medium text-slate-300">
+    <div className="flex justify-between text-sm mb-1.5 font-medium text-slate-300">
       <span>{label}</span>
       <span className="text-slate-500">{value} mg/kg</span>
     </div>
