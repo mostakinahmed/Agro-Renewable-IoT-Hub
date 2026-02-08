@@ -66,7 +66,7 @@ const Footer = () => {
       <div className="mt-6 pt-6 border-t border-slate-800/50 text-center">
         <p className="text-slate-600 text-[10px] uppercase font-bold tracking-[0.2em] flex flex-col md:flex-row items-center justify-center gap-1">
           © {currentYear} All Rights Reserved • Made with{" "}
-          <Heart size={24} className="text-red-500 animate-pulse" /> at Daffodil
+          <Heart size={20} className="text-red-500 animate-pulse" /> at Daffodil
           International University
         </p>
       </div>
