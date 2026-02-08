@@ -1,0 +1,109 @@
+#include "DHT.h"
+#include <Wire.h>
+#include <Adafruit_GFX.h>
+#include <Adafruit_SSD1306.h>
+#include <WiFi.h>
+#include <WiFiClientSecure.h> 
+#include <HTTPClient.h>
+#include <ArduinoJson.h>
+
+#define SCREEN_WIDTH 128
+#define SCREEN_HEIGHT 64
+#define pin_trig 5
+#define pin_echo 16
+#define pin_led 33
+#define DHTPIN 19
+#define DHTTYPE DHT22
+
+const char* ssid = "Wokwi-GUEST"; 
+const char* password = "";
+const char* serverName = "https://api.smartfarm.mostakinahmed.com/api/iot/sensor-upload"; 
+
+// --- Timer Variables ---
+unsigned long lastTime = 0;
+unsigned long timerDelay = 1000; // Updated to 2 seconds for faster response
+
+Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, -1);
+DHT dht(DHTPIN, DHTTYPE);
+
+void setup() {
+  pinMode(pin_trig, OUTPUT);
+  pinMode(pin_echo, INPUT);
+  pinMode(pin_led, OUTPUT);
+  Serial.begin(115200);
+
+  if (!display.begin(SSD1306_SWITCHCAPVCC, 0x3C)) {
+    for (;;);
+  }
+
+  WiFi.begin(ssid, password);
+  while (WiFi.status() != WL_CONNECTED) {
+    delay(500);
+    Serial.print(".");
+  }
+  Serial.println("\n✅ WiFi Connected!");
+  dht.begin();
+}
+
+void loop() {
+  // 1. Always Read Sensors for the OLED (Fast Update)
+  digitalWrite(pin_trig, LOW);
+  delayMicroseconds(5);
+  digitalWrite(pin_trig, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(pin_trig, LOW);
+
+  int duration = pulseIn(pin_echo, HIGH);
+  long distance = duration * 0.034 / 2;
+  float temp = dht.readTemperature();
+  float hum = dht.readHumidity();
+
+  // 2. OLED Refresh (Runs every loop - very smooth)
+  display.clearDisplay();
+  display.setTextSize(1);
+  display.setCursor(0, 0);
+  display.println("SMART FARM LIVE");
+  display.drawLine(0, 10, 128, 10, WHITE);
+  display.setCursor(0, 20);
+  display.printf("Dist: %ld cm\n", distance);
+  display.printf("Temp: %.1f C\n", temp);
+  display.printf("Hum:  %.1f %%\n", hum);
+  display.display();
+
+  // 3. Send Data to API only when timer expires (Every 2 seconds)
+  if ((millis() - lastTime) > timerDelay) {
+    if (WiFi.status() == WL_CONNECTED) {
+      WiFiClientSecure client;
+      client.setInsecure(); 
+      
+      HTTPClient http;
+      http.begin(client, serverName); 
+      http.addHeader("Content-Type", "application/json");
+      http.addHeader("Connection", "keep-alive"); // Keep connection warm
+
+      StaticJsonDocument<256> doc;
+      doc["temp"] = temp;
+      doc["humidity"] = hum;
+      doc["moisture"] = distance;
+      doc["batteryPct"] = 95; 
+
+      String jsonPayload;
+      serializeJson(doc, jsonPayload);
+
+      int httpResponseCode = http.POST(jsonPayload);
+
+      if (httpResponseCode > 0) {
+        String response = http.getString();
+        StaticJsonDocument<256> resDoc;
+        deserializeJson(resDoc, response);
+        
+        // Instant Command Reaction
+        bool pumpOn = resDoc["commands"]["isPumpOn"];
+        digitalWrite(pin_led, pumpOn ? HIGH : LOW);
+        Serial.println("📡 Synced with Server");
+      }
+      http.end();
+    }
+    lastTime = millis(); // Reset the timer
+  }
+}
