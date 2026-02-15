@@ -15,6 +15,7 @@ import {
 import { io } from "socket.io-client";
 import TeamMember from "./TeamMember";
 import Footer from "./Footer";
+import Radar from "./Radar";
 
 const BASE_URL = "https://api.smartfarm.mostakinahmed.com";
 
@@ -226,8 +227,8 @@ const AgriDashboard = () => {
         </div>
 
         {/* Analytics Logs */}
-        <div className="lg:col-span-1 bg-slate-800/50 rounded-2xl p-6 border border-slate-700 shadow-xl">
-          <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
+
+        {/* <h3 className="text-lg font-semibold mb-4 flex items-center gap-2">
             <Zap size={18} className="text-blue-400" /> Logs
           </h3>
           <div className="space-y-3 font-mono text-[11px] text-slate-400">
@@ -245,7 +246,9 @@ const AgriDashboard = () => {
                 Storage: {data.batteryPct}%. Status: {data.chargingStatus}.
               </p>
             </div>
-          </div>
+          </div> */}
+        <div className="flex">
+          <Radar />
         </div>
       </div>
 
