@@ -18,7 +18,7 @@ const Footer = () => {
         {/* Left Side: Branding */}
         <div className="text-center md:text-left">
           <h2 className="md:text-xl text-lg font-bold text-white tracking-tight">
-            Mostakin <span className="text-green-500">Ahmed</span>
+            Team Tera <span className="text-green-500">Code</span>
           </h2>
           {/* <p className="text-slate-500 text-xs mt-1 font-medium uppercase tracking-widest">
             Full-Stack MERN Developer

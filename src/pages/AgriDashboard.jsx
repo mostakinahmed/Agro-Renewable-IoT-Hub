@@ -133,7 +133,7 @@ const AgriDashboard = () => {
           </div>
 
           {/* CONDITIONAL SYSTEM STATUS */}
-          {data?.latestData?.system ==="ON" ? (
+          {data?.latestData?.system === "ON" ? (
             // SYSTEM IS TRUE (CONNECTED)
             <div className="flex items-center gap-4 bg-slate-800 px-4 py-2 rounded-xl border border-green-500/30">
               <div className="md:w-3 md:h-3 w-2 h-2 bg-green-500 rounded-full animate-pulse shadow-[0_0_8px_rgba(34,197,94,0.6)]"></div>
@@ -179,7 +179,18 @@ const AgriDashboard = () => {
             />
           }
           label="Soil Dryness"
-          value={`${Math.round(((data?.latestData?.moisture || 0) / 4095) * 100)}%`}
+          value={
+            <div className="flex flex-col">
+              {/* The Percentage (Main Value) */}
+              <span className="text-2xl font-bold">
+                {Math.round(((data?.latestData?.moisture || 0) / 4095) * 100)}%
+              </span>
+              {/* The Raw Value / Max Value (Sub-text) */}
+              <span className="text-sm text-slate-500 font-medium">
+                {data?.latestData?.moisture || 0} / 4095
+              </span>
+            </div>
+          }
           color="border-emerald-500/20"
         />
 
@@ -306,7 +317,7 @@ const AgriDashboard = () => {
 // Sub-components exactly as per your previous design
 const MetricCard = ({ icon, label, value, color }) => (
   <div
-    className={`bg-slate-800/40 backdrop-blur-md p-6 rounded-2xl border ${color} hover:bg-slate-800/60 transition-all`}
+    className={`bg-slate-800/40 backdrop-blur-md px-6 py-3 rounded-2xl border ${color} hover:bg-slate-800/60 transition-all`}
   >
     <div className="flex justify-between items-start mb-4">
       <div className="p-2 bg-slate-900 rounded-lg">{icon}</div>
