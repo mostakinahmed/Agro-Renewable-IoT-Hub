@@ -132,7 +132,7 @@ const AgriDashboard = () => {
             </p>
           </div>
 
-          {/* 2. CONDITIONAL SYSTEM STATUS */}
+          {/* CONDITIONAL SYSTEM STATUS */}
           {data?.latestData?.system ==="ON" ? (
             // SYSTEM IS TRUE (CONNECTED)
             <div className="flex items-center gap-4 bg-slate-800 px-4 py-2 rounded-xl border border-green-500/30">
