@@ -7,6 +7,7 @@ import {
   Power,
   Battery,
   Activity,
+  CloudRain,
   Zap,
   Sprout,
   Wifi,
@@ -45,7 +46,7 @@ const AgriDashboard = () => {
     // 2. Initial Fetch: Grabs the last known state immediately on page load
     const fetchInitialData = async () => {
       try {
-        const response = await fetch(`${BASE_URL}/api/iot/latest-data`);
+        const response = await fetch("https://api.smartfarm.mostakinahmed.com");
         if (!response.ok) throw new Error("Network response was not ok");
         const result = await response.json();
         if (result) {
@@ -123,41 +124,85 @@ const AgriDashboard = () => {
           </p>
         </div>
         <div className="flex gap-4">
+          {/* 1. Solar/Charging Status (Existing) */}
           <div className="bg-slate-800 flex gap-2 px-4 py-2 rounded-xl border border-slate-700">
             <p className="text-xs text-slate-500 font-bold uppercase">Solar:</p>
             <p className="text-sm -mt-1 text-yellow-500 font-semibold">
-              {data.chargingStatus}
+              {data?.chargingStatus || "Standby"}
             </p>
           </div>
-          <div className="flex items-center gap-4 bg-slate-800 px-4 py-2 rounded-xl border border-green-500/30">
-            <div className="md:w-3 md:h-3 w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
-            <span className="text-xs font-medium uppercase tracking-widest">
-              Live Feed
-            </span>
-          </div>
+
+          {/* 2. CONDITIONAL SYSTEM STATUS */}
+          {data?.latestData?.system ==="ON" ? (
+            // SYSTEM IS TRUE (CONNECTED)
+            <div className="flex items-center gap-4 bg-slate-800 px-4 py-2 rounded-xl border border-green-500/30">
+              <div className="md:w-3 md:h-3 w-2 h-2 bg-green-500 rounded-full animate-pulse shadow-[0_0_8px_rgba(34,197,94,0.6)]"></div>
+              <span className="text-xs font-medium uppercase tracking-widest text-green-400">
+                Server Connected
+              </span>
+            </div>
+          ) : (
+            // SYSTEM IS FALSE (DISCONNECTED)
+            <div className="flex items-center gap-4 bg-slate-800 px-4 py-2 rounded-xl border border-red-500/30">
+              <div className="md:w-3 md:h-3 w-2 h-2 bg-red-500 rounded-full shadow-[0_0_8px_rgba(239,68,68,0.6)]"></div>
+              <span className="text-xs font-medium uppercase tracking-widest text-red-400">
+                System Offline
+              </span>
+            </div>
+          )}
         </div>
       </header>
 
       {/* Metrics Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
         <MetricCard
           icon={<Thermometer className="text-orange-400" />}
           label="Temp"
-          value={`${data.temp}°C`}
+          value={`${data?.latestData?.temp}°C`}
           color="border-orange-500/20"
         />
         <MetricCard
           icon={<Droplets className="text-blue-400" />}
           label="Humidity"
-          value={`${data.humidity}%`}
+          value={`${data?.latestData?.humidity}%`}
           color="border-blue-500/20"
         />
+
         <MetricCard
-          icon={<Activity className="text-emerald-400" />}
-          label="Soil"
-          value={`${data.moisture}%`}
+          icon={
+            <Activity
+              className={
+                ((data?.latestData?.moisture || 0) / 4095) * 100 > 80
+                  ? "text-red-400"
+                  : "text-emerald-400"
+              }
+            />
+          }
+          label="Soil Dryness"
+          value={`${Math.round(((data?.latestData?.moisture || 0) / 4095) * 100)}%`}
           color="border-emerald-500/20"
         />
+
+        <MetricCard
+          icon={
+            <CloudRain
+              className={
+                data?.latestData?.rainRaw < 2000
+                  ? "text-indigo-500"
+                  : "text-indigo-200"
+              }
+            />
+          }
+          label="Rain Intensity"
+          value={
+            <span>
+              {data?.latestData?.rainRaw || 0}
+              <span className="text-sm text-gray-500 ml-1">/ 4095</span>
+            </span>
+          }
+          color="border-indigo-500/20"
+        />
+
         <MetricCard
           icon={<Sun className="text-yellow-400" />}
           label="Light"
@@ -199,14 +244,10 @@ const AgriDashboard = () => {
           <div className="space-y-4">
             <ToggleButton
               label="Irrigation Pump"
-              isActive={data.isPumpOn}
+              isActive={data?.activeDevices?.isPumpOn}
               onClick={() => toggleDevice("isPumpOn")}
             />
-            <ToggleButton
-              label="Greenhouse Fan"
-              isActive={data.isFanOn}
-              onClick={() => toggleDevice("isFanOn")}
-            />
+
             <div className="mt-6 pt-6 border-t border-slate-700">
               <div className="flex justify-between items-center mb-2">
                 <span className="text-slate-400 text-sm flex items-center gap-2">
