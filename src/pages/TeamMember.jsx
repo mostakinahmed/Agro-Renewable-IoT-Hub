@@ -8,7 +8,7 @@ const TeamMember = () => {
       name: "Mostakin Ahmed",
       role: "Lead Developer",
       isAdmin: true,
-      img: "https://scontent.fdac155-1.fna.fbcdn.net/v/t39.30808-6/477698665_608008722158980_264333779372568677_n.jpg?_nc_cat=105&ccb=1-7&_nc_sid=f727a1&_nc_ohc=m4kGP5BRA4AQ7kNvwEGscsR&_nc_oc=AdnVIoyZI_HyE6QAYM-M3RlIS2PKQmh8lsmoYyANt1j6uTZf4yN17sTUeJCLQ9U8HqI&_nc_zt=23&_nc_ht=scontent.fdac155-1.fna&_nc_gid=RFy3cc-Pt-i9UOXmKmymlQ&oh=00_AfuZIR1nMGG9xVocbLBcEMkwWe8yDteEGsv-7viQYhntdw&oe=698DEF2E",
+      img: "https://7vgva7cju0vcfvwf.public.blob.vercel-storage.com/516519819_717315094561675_8093001746283994340_n.jpg",
     },
     {
       id: 2,
@@ -20,25 +20,25 @@ const TeamMember = () => {
       id: 3,
       name: "Joeyria Tabassum",
       role: "UI/UX Designer",
-      img: "https://scontent.fdac155-1.fna.fbcdn.net/v/t39.30808-6/534900514_1814462739432123_1510006210458281349_n.jpg?_nc_cat=109&ccb=1-7&_nc_sid=a5f93a&_nc_ohc=xGi65PjPgm4Q7kNvwGDC4vH&_nc_oc=AdkOJ4Xp5BSiv7liC7fQe5sxbGmDHY3Fb7obZ5QJ7Mmv8A-1jUachJgsS5rVwqsmrxY&_nc_zt=23&_nc_ht=scontent.fdac155-1.fna&_nc_gid=W2BSiYQ9sxXl7j0uAKLiuA&oh=00_AfuYE9U5NoQwwr1YBDYGojVQIlBiZdYSYgtEnaDnojOQYw&oe=698E21DC",
+      img: "https://7vgva7cju0vcfvwf.public.blob.vercel-storage.com/tab.jpg",
     },
     {
       id: 4,
       name: "Najmus Sakib",
       role: "Backend Expert",
-      img: "https://scontent.fdac155-1.fna.fbcdn.net/v/t39.30808-1/608997397_122152102688401602_4176621420260749834_n.jpg?stp=dst-jpg_s200x200_tt6&_nc_cat=101&ccb=1-7&_nc_sid=e99d92&_nc_ohc=7nkKYsLnovkQ7kNvwHDI_9C&_nc_oc=AdlPP3Lph39xMGf04Lo0_vBA1_bFvupjuFpWNshRQd7atg99PPwDQl6g6ND7wb5Xx40&_nc_zt=24&_nc_ht=scontent.fdac155-1.fna&_nc_gid=gbDzcxJETXSbF7he9xtCNA&oh=00_AfsPxPZUNslDNRsu2Tbf8MxK3bG9SCm-bP4k6CSFLTXIbw&oe=698DF62E",
+      img: "https://7vgva7cju0vcfvwf.public.blob.vercel-storage.com/ton.jpg",
     },
     {
       id: 5,
       name: "Mourin Zaman Mouli",
       role: "Hardware Specialist",
-      img: "https://scontent.fdac155-1.fna.fbcdn.net/v/t39.30808-6/518258208_1255881386174680_1257216703481227911_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=127cfc&_nc_ohc=ykmLnW8YHK4Q7kNvwEHdSx2&_nc_oc=AdlxJNdkdyZuYrl8Z6b5N7D-YNWjfG8ORnPJ4A-QZUnpdb2oa_--y7jbLgK-GvirOk8&_nc_zt=23&_nc_ht=scontent.fdac155-1.fna&_nc_gid=KU3TmHiP8Z0ddDtWhBfu0w&oh=00_AfvwsBPY5WwQBFEpcsRi_qOb2r4qyvgNt72PW486g02XZg&oe=698DF766",
+      img: "https://7vgva7cju0vcfvwf.public.blob.vercel-storage.com/589818280_1364181035344714_1541993033577189401_n.jpg",
     },
     {
       id: 6,
       name: "Galiba Zannat Shucy",
       role: "System Analyst",
-      img: "https://scontent.fdac155-1.fna.fbcdn.net/v/t39.30808-6/595674412_1400644688448684_8157688383790124156_n.jpg?_nc_cat=110&ccb=1-7&_nc_sid=833d8c&_nc_ohc=JTzKV63d3lUQ7kNvwFz6nfH&_nc_oc=Adlu1ivDD2No2LIr8ZTdOPp5U0e4eNZY4snwuQEg1S2m5aVghwnUtdLxLp9zPQaBkig&_nc_zt=23&_nc_ht=scontent.fdac155-1.fna&_nc_gid=LMzOJU35Ipxyayl_c4zSpw&oh=00_AfvqkwOYgYq5AZ0Nv3CYR_7VDnZaD2cvxYfHWvhpF3vT5w&oe=698E193C",
+      img: "https://7vgva7cju0vcfvwf.public.blob.vercel-storage.com/gali.jpg",
     },
     {
       id: 7,
@@ -50,19 +50,19 @@ const TeamMember = () => {
       id: 8,
       name: "Zannatul Ferdous Sayma",
       role: "Network Engineer",
-      img: "https://api.dicebear.com/7.x/avataaars/svg?seed=8",
+      img: "https://7vgva7cju0vcfvwf.public.blob.vercel-storage.com/say.jpeg",
     },
     {
       id: 9,
       name: "Al Israq",
       role: "QA Engineer",
-      img: "https://scontent.fdac155-1.fna.fbcdn.net/v/t39.30808-6/481304732_1141014537678647_9071657129693207039_n.jpg?_nc_cat=108&ccb=1-7&_nc_sid=a5f93a&_nc_ohc=Jgg7ARtaIa4Q7kNvwEVl2sN&_nc_oc=Admi0GrRcpmfYpQ405ZEgXPDqINNj50Y87_V7ETDJzbeua7dwlte9MXtHjvpT2z_Emo&_nc_zt=23&_nc_ht=scontent.fdac155-1.fna&_nc_gid=7vR8Dc9VldOLr71CeU8cQA&oh=00_AftQOE33nF4Kmy-ejGId0cLxFQrIU4QBUk7SzxpN4GX1Ug&oe=698E145F",
+      img: "https://7vgva7cju0vcfvwf.public.blob.vercel-storage.com/isr.jpg",
     },
     {
       id: 10,
       name: "Fardin Shafin",
       role: "Documentation",
-      img: "https://scontent.fdac155-1.fna.fbcdn.net/v/t39.30808-6/504840097_1233634601568120_9031023282070215479_n.jpg?stp=cp6_dst-jpg_tt6&_nc_cat=103&ccb=1-7&_nc_sid=833d8c&_nc_ohc=H6MW06mAreAQ7kNvwGB2jiq&_nc_oc=AdnxacaISwc4zNmuBY_UNxaVFK0XNyCIrCD7UjTVLBaXCiMB91FHHOtprwAc3C1zdCk&_nc_zt=23&_nc_ht=scontent.fdac155-1.fna&_nc_gid=7NksjcjOT1QcldmMoFxgkA&oh=00_AftZmDYaVQIsvUKn6uFsCAK49LxMWelmNASFT8XbFx09Zg&oe=698E0DEB",
+      img: "https://7vgva7cju0vcfvwf.public.blob.vercel-storage.com/far.jpg",
     },
   ];
 

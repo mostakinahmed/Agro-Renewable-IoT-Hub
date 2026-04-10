@@ -127,7 +127,7 @@ const AgriDashboard = () => {
             <span className="text-xs text-slate-500 font-bold uppercase">
               Solar:
             </span>
-            <span className="text-sm text-yellow-500 font-semibold">
+            <span className="md:text-sm text-xs text-yellow-500 font-semibold">
               {data.chargingStatus}
             </span>
           </div>
@@ -138,7 +138,7 @@ const AgriDashboard = () => {
               className={`md:w-3 md:h-3 w-2 h-2 rounded-full ${data.latestData.system === "ON" ? "bg-green-500 animate-pulse" : "bg-red-500"}`}
             ></div>
             <span
-              className={`text-xs font-medium uppercase ${data.latestData.system === "ON" ? "text-green-400" : "text-red-400"}`}
+              className={`text-md:xs text-[11px] font-medium uppercase ${data.latestData.system === "ON" ? "text-green-500" : "text-red-400"}`}
             >
               {data.latestData.system === "ON"
                 ? "Server Connected"
