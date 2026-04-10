@@ -9,11 +9,15 @@ import {
   CloudRain,
   Sprout,
   Wifi,
+  FileText,
+  Image as ImageIcon, // Added ImageIcon
 } from "lucide-react";
 import { io } from "socket.io-client";
 import TeamMember from "./TeamMember";
 import Footer from "./Footer";
 import Radar from "./Radar";
+import DocModal from "./DocModal";
+import ImageModal from "./ImageModal"; // Import your ImageModal
 
 const BASE_URL = "https://api.smartfarm.mostakinahmed.com";
 
@@ -23,6 +27,13 @@ const socket = io(BASE_URL, {
 });
 
 const AgriDashboard = () => {
+  // --- MODAL STATES ---
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedDoc, setSelectedDoc] = useState({ title: "", url: "" });
+
+  const [isImgModalOpen, setIsImgModalOpen] = useState(false);
+  const [selectedImg, setSelectedImg] = useState({ title: "", url: "" });
+
   const [data, setData] = useState({
     latestData: {
       temp: "--",
@@ -32,10 +43,7 @@ const AgriDashboard = () => {
       rainRaw: "--",
       system: "OFF",
     },
-    activeDevices: {
-      isPumpOn: false,
-      isFanOn: false,
-    },
+    activeDevices: { isPumpOn: false, isFanOn: false },
     batteryPct: 0,
     chargingStatus: "Standby",
     nitrogen: 45,
@@ -50,22 +58,16 @@ const AgriDashboard = () => {
       try {
         const response = await fetch(BASE_URL);
         const result = await response.json();
-        if (result) {
-          setData((prev) => ({ ...prev, ...result }));
-        }
+        if (result) setData((prev) => ({ ...prev, ...result }));
       } catch (err) {
         console.error("❌ Initial fetch failed:", err);
       }
     };
-
     fetchInitialData();
 
     socket.on("connect", () => setIsConnected(true));
     socket.on("disconnect", () => setIsConnected(false));
-
-    // THE FIX: Wrap incoming data into latestData object
     socket.on("update_dashboard", (newData) => {
-      console.log("🔥 Socket Update:", newData);
       setData((prev) => ({
         ...prev,
         latestData: { ...prev.latestData, ...newData },
@@ -82,23 +84,18 @@ const AgriDashboard = () => {
   const toggleDevice = async (device) => {
     const currentState = data.activeDevices?.[device] || false;
     const newState = !currentState;
-
-    // Optimistic Update
     setData((prev) => ({
       ...prev,
       activeDevices: { ...prev.activeDevices, [device]: newState },
     }));
 
     try {
-      const response = await fetch(`${BASE_URL}/api/iot/control-device`, {
+      await fetch(`${BASE_URL}/api/iot/control-device`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ device, state: newState }),
       });
-      const result = await response.json();
-      if (!result.success) throw new Error();
     } catch (err) {
-      // Rollback on error
       setData((prev) => ({
         ...prev,
         activeDevices: { ...prev.activeDevices, [device]: currentState },
@@ -110,7 +107,7 @@ const AgriDashboard = () => {
     <div className="min-h-screen bg-slate-900 text-white p-6 font-sans">
       <header className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 border-b border-slate-700 pb-6 gap-4">
         <div>
-          <h1 className="md:text-3xl text-2xl font-bold text-green-400">
+          <h1 className="md:text-3xl text-2xl font-bold text-green-400 tracking-tight">
             Agro-Renewable IoT Hub
           </h1>
           <p className="text-slate-400 text-sm flex items-center gap-2">
@@ -122,32 +119,90 @@ const AgriDashboard = () => {
             {isConnected ? "Daffodil Farm Site (Online)" : "Connecting..."}
           </p>
         </div>
-        <div className="flex gap-4">
-          <div className="bg-slate-800 flex gap-2 px-4 py-2 rounded-xl border border-slate-700">
-            <span className="text-xs text-slate-500 font-bold uppercase">
-              Solar:
-            </span>
-            <span className="md:text-sm text-xs text-yellow-500 font-semibold">
-              {data.chargingStatus}
-            </span>
+
+        {/* RESPONSIVE BUTTON GROUP */}
+        <div className="flex flex-col md:flex-row flex-wrap items-center gap-3 w-full md:w-auto">
+          <div className="flex items-center justify-between w-full md:w-auto gap-3">
+            {/* 1. DOCUMENTATION BUTTON */}
+            <button
+              onClick={() => {
+                setSelectedDoc({
+                  title: "Project Report & Specs",
+                  url: "/docs/reports.pdf",
+                });
+                setIsModalOpen(true);
+              }}
+              className="h-8 flex-1 md:flex-none flex items-center justify-center gap-2 bg-blue-600 hover:bg-blue-500 px-5 rounded-xl transition-all shadow-lg active:scale-95 group whitespace-nowrap"
+            >
+              <FileText
+                size={16}
+                className="group-hover:rotate-12 transition-transform"
+              />
+              <span className="md:text-xs text-[11px] font-bold uppercase tracking-widest text-white">
+                Documentation
+              </span>
+            </button>
+
+            {/* 2. IMAGE GALLERY BUTTON - Exact Twin of Doc Button */}
+            <button
+              onClick={() => {
+                setSelectedImg({
+                  title: "Hardware Setup",
+                  url: "/images/setup.jpg",
+                });
+                setIsImgModalOpen(true);
+              }}
+              className="h-8 flex-1 md:flex-none flex items-center justify-center gap-2 bg-emerald-600 hover:bg-emerald-500 px-5 rounded-xl transition-all shadow-lg active:scale-95 group whitespace-nowrap"
+            >
+              <ImageIcon
+                size={16}
+                className="group-hover:scale-110 transition-transform"
+              />
+              <span className="md:text-xs text-[11px] font-bold uppercase tracking-widest text-white">
+                Gallery
+              </span>
+            </button>
+
+            {/* SOLAR STATUS - Matched Height and Padding */}
+            <div className="h-8 bg-slate-800 flex items-center gap-2 px-5 rounded-xl border border-slate-700 whitespace-nowrap">
+              <span className="md:text-xs text-[11px] text-slate-500 font-bold uppercase tracking-widest">
+                Solar:
+              </span>
+              <span className="md:text-sm text-xs text-yellow-500 font-bold uppercase">
+                {data.chargingStatus}
+              </span>
+            </div>
           </div>
+
+          {/* SYSTEM STATUS BAR - Matched Height */}
           <div
-            className={`flex items-center gap-4 bg-slate-800 px-4 py-2 rounded-xl border ${data.latestData.system === "ON" ? "border-green-500/30" : "border-red-500/30"}`}
+            className={`h-8 flex items-center justify-center md:justify-start px-5 rounded-xl border transition-all duration-500 w-full md:w-auto ${
+              data.latestData.system === "ON"
+                ? "bg-green-500/5 border-green-500/30"
+                : "bg-red-500/5 border-red-500/30"
+            }`}
           >
             <div
-              className={`md:w-3 md:h-3 w-2 h-2 rounded-full ${data.latestData.system === "ON" ? "bg-green-500 animate-pulse" : "bg-red-500"}`}
+              className={`w-2.5 h-2.5 rounded-full mr-3 ${
+                data.latestData.system === "ON"
+                  ? "bg-green-500 animate-pulse"
+                  : "bg-red-500"
+              }`}
             ></div>
             <span
-              className={`text-md:xs text-[11px] font-medium uppercase ${data.latestData.system === "ON" ? "text-green-500" : "text-red-400"}`}
+              className={`md:text-xs text-[11px] font-bold uppercase tracking-widest ${
+                data.latestData.system === "ON"
+                  ? "text-green-500"
+                  : "text-red-400"
+              }`}
             >
-              {data.latestData.system === "ON"
-                ? "Server Connected"
-                : "System Offline"}
+              {data.latestData.system === "ON" ? "Online" : "Offline"}
             </span>
           </div>
         </div>
       </header>
 
+      {/* Metrics Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
         <MetricCard
           icon={<Thermometer className="text-orange-400" />}
@@ -245,16 +300,33 @@ const AgriDashboard = () => {
           <Radar />
         </div>
       </div>
+
       <div className="mt-12">
         <TeamMember />
       </div>
       <div className="mt-12">
         <Footer />
       </div>
+
+      {/* --- RENDER ALL MODALS --- */}
+      <DocModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        pdfUrl={selectedDoc.url}
+        title={selectedDoc.title}
+      />
+
+      <ImageModal
+        isOpen={isImgModalOpen}
+        onClose={() => setIsImgModalOpen(false)}
+        imageUrl={selectedImg.url}
+        title={selectedImg.title}
+      />
     </div>
   );
 };
 
+// ... Sub-components (MetricCard, NPKBar, ToggleButton) stay the same ...
 const MetricCard = ({ icon, label, value, color }) => (
   <div
     className={`bg-slate-800/40 backdrop-blur-md px-6 py-3 rounded-2xl border ${color} hover:bg-slate-800/60 transition-all`}
@@ -294,7 +366,7 @@ const ToggleButton = ({ label, isActive, onClick }) => (
     >
       <div
         className={`absolute top-1 w-4 h-4 bg-white rounded-full transition-all ${isActive ? "left-7" : "left-1"}`}
-      ></div>
+      />
     </button>
   </div>
 );
