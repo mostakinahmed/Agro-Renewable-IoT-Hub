@@ -6,7 +6,7 @@ const DocModal = ({ isOpen, onClose, pdfUrl, title }) => {
 
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 backdrop-blur-xs">
-      <div className="bg-slate-800 w-full max-w-2xl md:h-[92vh] h-[70vh] rounded border border-slate-700 flex flex-col overflow-hidden shadow-2xl">
+      <div className="bg-slate-800 w-full max-w-2xl md:h-[92vh] h-[92vh] rounded border border-slate-700 flex flex-col overflow-hidden shadow-2xl">
         {/* Modal Header */}
         <div className="px-5 py-2 border-b border-slate-700 flex justify-between items-center bg-slate-800/80">
           <div className="flex items-center gap-3">
