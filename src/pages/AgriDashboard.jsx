@@ -119,7 +119,7 @@ const AgriDashboard = () => {
                 size={14}
                 className={isConnected ? "text-green-500" : "text-red-500"}
               />
-             
+
               {isConnected
                 ? "Daffodil Smart Agriculture Farm (DEMO)"
                 : "Connecting..."}
@@ -150,12 +150,13 @@ const AgriDashboard = () => {
               </span>
             </button>
 
-            {/* 2. IMAGE GALLERY BUTTON - Exact Twin of Doc Button */}
+            {/* 2. IMAGE GALLERY BUTTON */}
             <button
               onClick={() => {
                 setSelectedImg({
                   title: "Hardware Setup",
                   url: "/images/setup.jpg",
+                  bgColor: "bg-emerald-900/20", // Optional: pass your specific color here
                 });
                 setIsImgModalOpen(true);
               }}
@@ -163,7 +164,7 @@ const AgriDashboard = () => {
             >
               <ImageIcon
                 size={16}
-                className="group-hover:scale-110 transition-transform"
+                className="group-hover:scale-110 transition-transform text-white"
               />
               <span className="md:text-xs text-[11px] font-bold uppercase tracking-widest text-white">
                 Gallery

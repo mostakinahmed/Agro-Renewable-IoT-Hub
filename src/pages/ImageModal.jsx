@@ -1,48 +1,141 @@
-import React from "react";
-import { X, ZoomIn, Download } from "lucide-react";
+import React, { useState } from "react";
+import {
+  X,
+  ZoomIn,
+  Download,
+  ChevronLeft,
+  ChevronRight,
+  Image as ImageIcon,
+} from "lucide-react";
 
-const ImageModal = ({ isOpen, onClose, imageUrl, title }) => {
+const ImageModal = ({ isOpen, onClose }) => {
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  // 1. DATA: Add your project images here directly
+  const galleryData = [
+    {
+      title: "Hardware Setup",
+      url: "/mos.jpg",
+      description: "Complete ESP32 and Sensor wiring for the IoT Hub.",
+      frameColor: "bg-emerald-900/40",
+    },
+    {
+      title: "Solar Power Unit",
+      url: "/images/solar.jpg",
+      description: "Renewable energy management system.",
+      frameColor: "bg-blue-900/40",
+    },
+    {
+      title: "Sensor Calibration",
+      url: "/images/calibration.jpg",
+      description: "Testing DHT11 and Soil Moisture sensors.",
+      frameColor: "bg-amber-900/40",
+    },
+  ];
+
   if (!isOpen) return null;
 
+  const activeImg = galleryData[currentIndex];
+
+  // Navigation Logic
+  const handleNext = () => {
+    setCurrentIndex((prev) => (prev === galleryData.length - 1 ? 0 : prev + 1));
+  };
+
+  const handlePrev = () => {
+    setCurrentIndex((prev) => (prev === 0 ? galleryData.length - 1 : prev - 1));
+  };
+
   return (
-    <div
-      className="fixed inset-0 z-[110] flex items-center justify-center p-4 bg-black/95 backdrop-blur-md"
-      onClick={onClose} // Close when clicking the background
-    >
-      <div
-        className="relative max-w-5xl w-full flex flex-col items-center"
-        onClick={(e) => e.stopPropagation()} // Prevent closing when clicking the image
-      >
-        {/* Header Controls */}
-        <div className="absolute -top-12 left-0 right-0 flex justify-between items-center px-2">
-          <h3 className="text-white font-medium flex items-center gap-2">
-            <ZoomIn size={18} className="text-green-400" />
-            {title}
-          </h3>
-          <div className="flex gap-4">
+    <div className="fixed inset-0 z-[200] flex items-center justify-center p-4  backdrop-blur-md">
+      {/* Main Container */}
+      <div className="relative max-w-7xl md:mt-10 w-full flex flex-col items-center">
+        {/* Header: Title and Controls */}
+        <div className="absolute -top-14 left-0 right-0 flex justify-between items-center px-2">
+          <div className="flex flex-col">
+            <h3 className="text-white font-bold text-lg flex items-center gap-2">
+              <ImageIcon size={20} className="text-emerald-400" />
+              {activeImg.title}
+              <span className="text-slate-500 text-xs font-normal ml-2">
+                {currentIndex + 1} / {galleryData.length}
+              </span>
+            </h3>
+          </div>
+
+          <div className="flex items-center gap-3">
             <a
-              href={imageUrl}
+              href={activeImg.url}
               download
-              className="text-slate-300 hover:text-white transition-colors"
+              target="_blank"
+              rel="noreferrer"
+              className="p-2 bg-white/10 hover:bg-white/20 rounded-full text-white transition-all"
             >
-              <Download size={22} />
+              <Download size={20} />
             </a>
             <button
               onClick={onClose}
-              className="text-slate-300 hover:text-red-500 transition-all"
+              className="p-2 bg-white/10 hover:bg-red-500/20 hover:text-red-500 rounded-full text-white transition-all"
             >
-              <X size={28} />
+              <X size={26} />
             </button>
           </div>
         </div>
 
-        {/* Image Container */}
-        <div className="bg-slate-800 p-1 rounded-2xl border border-slate-700 shadow-2xl overflow-hidden">
-          <img
-            src={imageUrl}
-            alt={title}
-            className="max-h-[80vh] w-auto object-contain rounded-xl"
-          />
+        {/* Image Display Area */}
+        <div className="relative w-full group flex items-center justify-center">
+          {/* Navigation Buttons */}
+          <button
+            onClick={handlePrev}
+            className="absolute left-2 md:left-4 z-10 p-2 bg-black/50 hover:bg-emerald-600 text-white rounded-full transition-all opacity-0 group-hover:opacity-100"
+          >
+            <ChevronLeft size={32} />
+          </button>
+
+          <button
+            onClick={handleNext}
+            className="absolute right-2 md:right-4 z-10 p-2 bg-black/50 hover:bg-emerald-600 text-white rounded-full transition-all opacity-0 group-hover:opacity-100"
+          >
+            <ChevronRight size={32} />
+          </button>
+
+          {/* Image Frame */}
+          <div
+            className={`${activeImg.frameColor} p-2 md:p-4 rounded border border-white/10 shadow-2xl flex flex-col items-center w-full`}
+          >
+            <img
+              src={activeImg.url}
+              alt={activeImg.title}
+              className="max-h-[60vh] md:max-h-[70vh] w-auto object-contain rounded shadow-2xl"
+            />
+
+            {/* Description Text */}
+            <div className="mt-4 px-4 pb-2 text-center">
+              <p className="text-slate-300 text-sm md:text-base italic">
+                {activeImg.description}
+              </p>
+            </div>
+          </div>
+        </div>
+
+        {/* Thumbnail Selector */}
+        <div className="mt-6 flex gap-3 overflow-x-auto p-2 max-w-full no-scrollbar">
+          {galleryData.map((img, idx) => (
+            <button
+              key={idx}
+              onClick={() => setCurrentIndex(idx)}
+              className={`relative flex-shrink-0 w-16 h-12 rounded overflow-hidden border-2 transition-all ${
+                currentIndex === idx
+                  ? "border-emerald-500 scale-110"
+                  : "border-slate-700 opacity-40 hover:opacity-100"
+              }`}
+            >
+              <img
+                src={img.url}
+                className="w-full h-full object-cover"
+                alt="preview"
+              />
+            </button>
+          ))}
         </div>
       </div>
     </div>
