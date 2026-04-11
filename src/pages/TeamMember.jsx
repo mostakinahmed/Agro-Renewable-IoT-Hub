@@ -89,7 +89,7 @@ const TeamMember = () => {
         {team.map((member) => (
           <div
             key={member.id}
-            className="md:min-w-[162px] min-w-[150px] md:max-w-[200px] max-w-[200px] bg-slate-800/60 border border-slate-700/40 rounded py-3 snap-start hover:border-green-500/40 transition-all group relative overflow-hidden shadow-lg"
+            className="md:min-w-[162px] min-w-[155px] md:max-w-[200px] max-w-[200px] bg-slate-800/60 border border-slate-700/40 rounded py-3 snap-start hover:border-green-500/40 transition-all group relative overflow-hidden shadow-lg"
           >
             {/* Lead Tag */}
             {member.isAdmin && (
@@ -108,11 +108,11 @@ const TeamMember = () => {
                 <div className="absolute bottom-0 right-0 bg-green-500 w-3 h-3 rounded-full border-2 border-slate-800 animate-pulse"></div>
               </div>
 
-              <div className="text-center mb-4 px-2 w-full">
+              <div className="text-center mb-4 px-1 w-full">
                 <h4 className="text-slate-100 font-bold text-sm truncate">
                   {member.name}
                 </h4>
-                <p className="text-green-500/80 text-[9px] uppercase font-bold tracking-widest">
+                <p className="text-green-500/80 text-[9px] uppercase font-bold tracking-wider">
                   {member.role}
                 </p>
               </div>
