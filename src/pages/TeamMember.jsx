@@ -36,7 +36,7 @@ const TeamMember = () => {
     },
     {
       id: 6,
-      name: "Galiba Zannat Shucy",
+      name: "Galiba Zannat Shuchi",
       role: "System Analyst",
       img: "https://7vgva7cju0vcfvwf.public.blob.vercel-storage.com/gali.jpg",
     },
