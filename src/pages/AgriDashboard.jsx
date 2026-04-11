@@ -108,7 +108,7 @@ const AgriDashboard = () => {
       <header className="flex flex-col md:flex-row justify-between items-start md:items-center md:mb-4 mb-3 border-b border-slate-700 pb-5 gap-4">
         <div className="flex gap-3">
           <div className="">
-            <img className="h-13 md:w-13 w-15 rounded-full" src="/logo a.png" alt="" />
+            <img className="h-13 w-13 rounded-full" src="/logo a.png" alt="" />
           </div>
           <div>
             <h1 className="md:text-3xl text-2xl font-bold text-green-400 tracking-tight">
