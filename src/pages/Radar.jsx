@@ -74,7 +74,7 @@ const Radar = () => {
 
   return (
     <div className="  bg-slate-900 text-green-400 w-full">
-      <div className="bg-slate-800/50  p-6 rounded-2xl shadow-2xl border border-green-900/50">
+      <div className="bg-slate-800/50  px-6 py-3 rounded shadow-2xl border border-green-900/50">
         <h3 className="text-lg text-white font-semibold mb-6 flex items-center gap-2">
           Security Radar
         </h3>

@@ -13,7 +13,7 @@ const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="md:mt-16 border-t border-slate-800 bg-slate-900/50 pt-6 px-6">
+    <footer className="md:mt-16 border-t border-slate-800 bg-slate-900/50 pt-6 md:px-6">
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center md:gap-6 gap-2">
         {/* Left Side: Branding */}
         <div className="text-center md:text-left">
@@ -63,11 +63,15 @@ const Footer = () => {
       </div>
 
       {/* Bottom Copyright */}
-      <div className="mt-6 pt-6 border-t border-slate-800/50 text-center">
-        <p className="text-slate-600 text-[10px] uppercase font-bold tracking-[0.2em] flex flex-col md:flex-row items-center justify-center gap-1">
-          © {currentYear} All Rights Reserved • Made with{" "}
-          <Heart size={20} className="text-red-500 animate-pulse" /> at Daffodil
-          International University
+      <div className="mt-4 pt-4 border-t border-slate-800/50 text-center">
+        <p className="hidden md:flex  text-slate-600 text-[10px] uppercase font-bold tracking-[0.2em]  flex-col md:flex-row items-center justify-center gap-1">
+          © {currentYear} All Rights Reserved • <br />
+          Student's From Daffodil International University
+        </p>
+
+        <p className="md:hidden text-slate-600 text-[10px] uppercase font-bold tracking-[0.2em] flex flex-col md:flex-row items-center justify-center gap-1">
+          © {currentYear} All Rights Reserved • <br />
+          Student: Daffodil International University
         </p>
       </div>
     </footer>

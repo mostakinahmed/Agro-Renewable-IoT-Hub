@@ -104,24 +104,31 @@ const AgriDashboard = () => {
   };
 
   return (
-    <div className="min-h-screen bg-slate-900 text-white p-6 font-sans">
-      <header className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 border-b border-slate-700 pb-6 gap-4">
-        <div>
-          <h1 className="md:text-3xl text-2xl font-bold text-green-400 tracking-tight">
-            Agro-Renewable IoT Hub
-          </h1>
-          <p className="text-slate-400 text-sm flex items-center gap-2">
-            <Wifi
-              size={14}
-              className={isConnected ? "text-green-500" : "text-red-500"}
-            />
-            System:{" "}
-            {isConnected ? "Daffodil Farm Site (Online)" : "Connecting..."}
-          </p>
+    <div className="min-h-screen bg-slate-900 text-white md:px-4 md:py-2  p-3 font-sans">
+      <header className="flex flex-col md:flex-row justify-between items-start md:items-center md:mb-4 mb-3 border-b border-slate-700 pb-5 gap-4">
+        <div className="flex gap-3">
+          <div className="">
+            <img className="h-13 md:w-13 w-15 rounded-full" src="/logo a.png" alt="" />
+          </div>
+          <div>
+            <h1 className="md:text-3xl text-2xl font-bold text-green-400 tracking-tight">
+              Agro-Renewable IoT Hub
+            </h1>
+            <p className="text-slate-400 text-sm flex items-center gap-2">
+              <Wifi
+                size={14}
+                className={isConnected ? "text-green-500" : "text-red-500"}
+              />
+             
+              {isConnected
+                ? "Daffodil Smart Agriculture Farm (DEMO)"
+                : "Connecting..."}
+            </p>
+          </div>
         </div>
 
         {/* RESPONSIVE BUTTON GROUP */}
-        <div className="flex flex-col md:flex-row flex-wrap items-center gap-3 w-full md:w-auto">
+        <div className="flex flex-col md:flex-row items-center md:gap-3 gap-4 w-full md:w-auto">
           <div className="flex items-center justify-between w-full md:w-auto gap-3">
             {/* 1. DOCUMENTATION BUTTON */}
             <button
@@ -162,48 +169,42 @@ const AgriDashboard = () => {
                 Gallery
               </span>
             </button>
-
-            {/* SOLAR STATUS - Matched Height and Padding */}
-            <div className="h-8 bg-slate-800 flex items-center gap-2 px-5 rounded-xl border border-slate-700 whitespace-nowrap">
-              <span className="md:text-xs text-[11px] text-slate-500 font-bold uppercase tracking-widest">
-                Solar:
-              </span>
-              <span className="md:text-sm text-xs text-yellow-500 font-bold uppercase">
-                {data.chargingStatus}
-              </span>
-            </div>
           </div>
 
           {/* SYSTEM STATUS BAR - Matched Height */}
-          <div
-            className={`h-8 flex items-center justify-center md:justify-start px-5 rounded-xl border transition-all duration-500 w-full md:w-auto ${
-              data.latestData.system === "ON"
-                ? "bg-green-500/5 border-green-500/30"
-                : "bg-red-500/5 border-red-500/30"
-            }`}
-          >
+          <div className=" flex justify-between w-full gap-3">
             <div
-              className={`w-2.5 h-2.5 rounded-full mr-3 ${
+              className={`h-8 flex items-center justify-center md:justify-start px-5 rounded-xl border transition-all duration-500 w-full md:w-auto ${
                 data.latestData.system === "ON"
-                  ? "bg-green-500 animate-pulse"
-                  : "bg-red-500"
-              }`}
-            ></div>
-            <span
-              className={`md:text-xs text-[11px] font-bold uppercase tracking-widest ${
-                data.latestData.system === "ON"
-                  ? "text-green-500"
-                  : "text-red-400"
+                  ? "bg-green-500/5 border-green-500/30"
+                  : "bg-red-500/5 border-red-500/30"
               }`}
             >
-              {data.latestData.system === "ON" ? "Online" : "Offline"}
-            </span>
+              <div
+                className={`w-2.5 h-2.5 rounded-full mr-3 ${
+                  data.latestData.system === "ON"
+                    ? "bg-green-500 animate-pulse"
+                    : "bg-red-500"
+                }`}
+              ></div>
+              <span
+                className={`md:text-xs text-[11px] font-bold uppercase tracking-widest ${
+                  data.latestData.system === "ON"
+                    ? "text-green-500"
+                    : "text-red-400"
+                }`}
+              >
+                {data.latestData.system === "ON"
+                  ? "Server Connected"
+                  : "Offline"}
+              </span>
+            </div>
           </div>
         </div>
       </header>
 
       {/* Metrics Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-3">
         <MetricCard
           icon={<Thermometer className="text-orange-400" />}
           label="Temp"
@@ -244,9 +245,9 @@ const AgriDashboard = () => {
         />
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mt-8">
-        <div className="bg-slate-800/50 rounded-2xl p-6 border border-slate-700 shadow-xl">
-          <h3 className="text-lg font-semibold mb-6 flex items-center gap-2">
+      <div className="grid grid-cols-1 lg:grid-cols-3  gap-3 md:mt-4 mt-3">
+        <div className="bg-slate-800/50 rounded px-6 py-4 border border-slate-700 shadow-xl">
+          <h3 className="text-lg font-semibold md:mb-6 mb-4 flex items-center gap-2">
             <Sprout size={18} className="text-green-400" /> Nutrients
           </h3>
           <div className="space-y-5">
@@ -268,7 +269,7 @@ const AgriDashboard = () => {
           </div>
         </div>
 
-        <div className="bg-slate-800/50 rounded-2xl p-6 border border-slate-700 shadow-xl">
+        <div className="bg-slate-800/50 rounded px-6 py-3 border border-slate-700 shadow-xl">
           <h3 className="text-lg font-semibold mb-6 flex items-center gap-2">
             <Power size={18} className="text-red-400" /> Devices
           </h3>
@@ -301,10 +302,10 @@ const AgriDashboard = () => {
         </div>
       </div>
 
-      <div className="mt-12">
+      <div className="mt-">
         <TeamMember />
       </div>
-      <div className="mt-12">
+      <div className="mt-">
         <Footer />
       </div>
 
@@ -329,16 +330,20 @@ const AgriDashboard = () => {
 // ... Sub-components (MetricCard, NPKBar, ToggleButton) stay the same ...
 const MetricCard = ({ icon, label, value, color }) => (
   <div
-    className={`bg-slate-800/40 backdrop-blur-md px-6 py-3 rounded-2xl border ${color} hover:bg-slate-800/60 transition-all`}
+    className={`bg-slate-800/40 backdrop-blur-md px-6 py-2 rounded border ${color} hover:bg-slate-800/60 transition-all`}
   >
-    <div className="flex justify-between items-start mb-4">
+    <div className="flex justify-between items-start mb-2">
       <div className="p-2 bg-slate-900 rounded-lg">{icon}</div>
-      <span className="text-[10px] text-slate-500 font-bold uppercase tracking-widest">
+
+      <span className="text-[10px] text-slate-500 font-bold uppercase tracking-widest flex items-center gap-4">
         Real-time
+        <span className="h-2.5 w-2.5 rounded-full -mt-1 bg-green-500 animate-pulse"></span>
       </span>
     </div>
     <p className="text-slate-400 text-sm font-medium">{label}</p>
-    <h2 className="text-3xl font-bold mt-1 tracking-tight">{value}</h2>
+    <h2 className="md:text-3xl text-2xl font-bold mt-1 tracking-tight">
+      {value}
+    </h2>
   </div>
 );
 
@@ -348,7 +353,7 @@ const NPKBar = ({ label, value, color }) => (
       <span>{label}</span>
       <span className="text-slate-500">{value} mg/kg</span>
     </div>
-    <div className="w-full bg-slate-900 h-1.5 rounded-full overflow-hidden">
+    <div className="w-full bg-slate-900 h-1.5 rounded overflow-hidden">
       <div
         className={`${color} h-full transition-all duration-1000`}
         style={{ width: `${value}%` }}

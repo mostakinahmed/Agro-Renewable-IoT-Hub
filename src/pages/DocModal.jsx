@@ -6,7 +6,7 @@ const DocModal = ({ isOpen, onClose, pdfUrl, title }) => {
 
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 backdrop-blur-xs">
-      <div className="bg-slate-800 w-full max-w-3xl h-[92vh] rounded border border-slate-700 flex flex-col overflow-hidden shadow-2xl">
+      <div className="bg-slate-800 w-full max-w-2xl md:h-[92vh] h-[70vh] rounded border border-slate-700 flex flex-col overflow-hidden shadow-2xl">
         {/* Modal Header */}
         <div className="px-5 py-2 border-b border-slate-700 flex justify-between items-center bg-slate-800/80">
           <div className="flex items-center gap-3">
@@ -14,8 +14,11 @@ const DocModal = ({ isOpen, onClose, pdfUrl, title }) => {
               <FileText className="text-blue-400" size={20} />
             </div>
             <div>
-              <h2 className="font-bold text-lg text-white leading-tight">
+              <h2 className="hidden md:block font-bold text-lg text-white leading-tight">
                 {title}
+              </h2>
+              <h2 className="md:hidden font-bold text-lg text-white leading-tight">
+                Project Report
               </h2>
             </div>
           </div>
