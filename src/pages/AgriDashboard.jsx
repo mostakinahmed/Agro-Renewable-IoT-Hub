@@ -222,14 +222,12 @@ const AgriDashboard = () => {
           icon={
             <Activity
               className={
-                ((data.latestData.moisture || 0) / 4095) * 100 > 80
-                  ? "text-red-400"
-                  : "text-emerald-400"
+                data.latestData.moisture ? "text-red-400" : "text-emerald-400"
               }
             />
           }
           label="Soil Dryness"
-          value={`${Math.round(((data.latestData.moisture || 0) / 4095) * 100)}%`}
+          value={`${Math.round(data.latestData.moisture)}`}
           color="border-emerald-500/20"
         />
         <MetricCard
