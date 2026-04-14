@@ -101,11 +101,11 @@ const ImageModal = ({ isOpen, onClose }) => {
             <img
               src={activeImg.url}
               alt={activeImg.title}
-              className="max-h-[60vh] md:max-h-[70vh] w-auto object-contain rounded shadow-2xl"
+              className="h-[45vh] md:h-[65vh]  w-auto object-contain rounded shadow-2xl"
             />
 
             {/* Description */}
-            <div className="mt-4 px-4 pb-2 text-center">
+            <div className="mt-4 pb-2 text-center">
               <p className="text-slate-300 text-sm md:text-base italic">
                 {activeImg.description}
               </p>
