@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import {
   X,
-  ZoomIn,
   Download,
   ChevronLeft,
   ChevronRight,
@@ -11,48 +10,43 @@ import {
 const ImageModal = ({ isOpen, onClose }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
-  // 1. DATA: Add your project images here directly
-  const galleryData = [
-    {
-      title: "Hardware Setup",
-      url: "/mos.jpg",
-      description: "Complete ESP32 and Sensor wiring for the IoT Hub.",
-      frameColor: "bg-emerald-900/40",
-    },
-    {
-      title: "Solar Power Unit",
-      url: "/images/solar.jpg",
-      description: "Renewable energy management system.",
-      frameColor: "bg-blue-900/40",
-    },
-    {
-      title: "Sensor Calibration",
-      url: "/images/calibration.jpg",
-      description: "Testing DHT11 and Soil Moisture sensors.",
-      frameColor: "bg-amber-900/40",
-    },
+  // 🎨 Frame colors
+  const colors = [
+    "bg-emerald-900/40",
+    "bg-blue-900/40",
+    "bg-amber-900/40",
+    "bg-purple-900/40",
   ];
+
+  // 🔥 Dynamic Image Data (1 → 18)
+  const galleryData = Array.from({ length: 17 }, (_, i) => ({
+    title: `Project Image ${i + 1}`,
+    url: `/image/${i + 1}.jpg`,
+    description: `This is image ${i + 1} of the IoT Smart Agriculture system.`,
+    frameColor: colors[i % colors.length],
+  }));
 
   if (!isOpen) return null;
 
   const activeImg = galleryData[currentIndex];
 
-  // Navigation Logic
+  // 👉 Next Image
   const handleNext = () => {
     setCurrentIndex((prev) => (prev === galleryData.length - 1 ? 0 : prev + 1));
   };
 
+  // 👉 Previous Image
   const handlePrev = () => {
     setCurrentIndex((prev) => (prev === 0 ? galleryData.length - 1 : prev - 1));
   };
 
   return (
-    <div className="fixed inset-0 z-[200] flex items-center justify-center p-4  backdrop-blur-md">
+    <div className="fixed inset-0 z-[200] flex items-center justify-center p-4 backdrop-blur-md bg-black/60">
       {/* Main Container */}
       <div className="relative max-w-7xl md:mt-10 w-full flex flex-col items-center">
-        {/* Header: Title and Controls */}
+        {/* Header */}
         <div className="absolute -top-14 left-0 right-0 flex justify-between items-center px-2">
-          <div className="flex flex-col">
+          <div>
             <h3 className="text-white font-bold text-lg flex items-center gap-2">
               <ImageIcon size={20} className="text-emerald-400" />
               {activeImg.title}
@@ -72,6 +66,7 @@ const ImageModal = ({ isOpen, onClose }) => {
             >
               <Download size={20} />
             </a>
+
             <button
               onClick={onClose}
               className="p-2 bg-white/10 hover:bg-red-500/20 hover:text-red-500 rounded-full text-white transition-all"
@@ -81,9 +76,9 @@ const ImageModal = ({ isOpen, onClose }) => {
           </div>
         </div>
 
-        {/* Image Display Area */}
+        {/* Image Area */}
         <div className="relative w-full group flex items-center justify-center">
-          {/* Navigation Buttons */}
+          {/* Prev Button */}
           <button
             onClick={handlePrev}
             className="absolute left-2 md:left-4 z-10 p-2 bg-black/50 hover:bg-emerald-600 text-white rounded-full transition-all opacity-0 group-hover:opacity-100"
@@ -91,6 +86,7 @@ const ImageModal = ({ isOpen, onClose }) => {
             <ChevronLeft size={32} />
           </button>
 
+          {/* Next Button */}
           <button
             onClick={handleNext}
             className="absolute right-2 md:right-4 z-10 p-2 bg-black/50 hover:bg-emerald-600 text-white rounded-full transition-all opacity-0 group-hover:opacity-100"
@@ -108,7 +104,7 @@ const ImageModal = ({ isOpen, onClose }) => {
               className="max-h-[60vh] md:max-h-[70vh] w-auto object-contain rounded shadow-2xl"
             />
 
-            {/* Description Text */}
+            {/* Description */}
             <div className="mt-4 px-4 pb-2 text-center">
               <p className="text-slate-300 text-sm md:text-base italic">
                 {activeImg.description}
@@ -117,7 +113,7 @@ const ImageModal = ({ isOpen, onClose }) => {
           </div>
         </div>
 
-        {/* Thumbnail Selector */}
+        {/* Thumbnails */}
         <div className="mt-6 flex gap-3 overflow-x-auto p-2 max-w-full no-scrollbar">
           {galleryData.map((img, idx) => (
             <button
